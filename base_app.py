@@ -26,12 +26,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(font_scale=1.4)
-from streamlit.caching import cache
+# from streamlit.caching import cache
 
 import re
 import nltk
 from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer 
+ntlk.download('stopwords')
+ntlk.downlad('wordnet')
 from wordcloud import WordCloud
 from PIL import Image
 
@@ -39,12 +41,12 @@ from PIL import Image
 news_vectorizer = open("resources/tfidfvect.pkl","rb")
 tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl file
 
-@st.cache(allow_output_mutation=True, show_spinner=False) 
+# @st.cache(allow_output_mutation=True, show_spinner=False) 
 def load_data(df):
 	dataframe = pd.read_csv(df + '.csv', index_col = 0)
 	return dataframe
 
-@st.cache(allow_output_mutation=True, show_spinner=False)
+# @st.cache(allow_output_mutation=True, show_spinner=False)
 def load_model(model):
 	predictor = joblib.load(open(os.path.join("resources/" + model + ".pkl"),"rb"))
 	return predictor
@@ -227,7 +229,7 @@ def create_wordcloud(tweets, n):
 
 # Load your raw data
 train = pd.read_csv("train.csv")
-@st.cache(allow_output_mutation=True, show_spinner=False) 
+# @st.cache(allow_output_mutation=True, show_spinner=False) 
 def load_bulk_data():
 
 	pro_len = train[train['sentiment']==1]['message'].str.len()
@@ -304,7 +306,7 @@ def main():
 		st.image(banner,use_column_width=True)
 		st.header("**Climate Change Tweet Classification**")
 		st.title("")
-		st.subheader("***by Team JS2***")
+		st.subheader("***by Nokuphila***")
 		st.header("\n\n")
 		st.header("/ Showcasing the machine learning models we've built to classify tweets \
 			about climate change after analysing the sentiment of the tweets.  /")
